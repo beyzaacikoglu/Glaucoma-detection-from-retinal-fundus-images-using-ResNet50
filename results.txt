@@ -1,0 +1,29 @@
+
+GLAUCOMA DETECTION PROJECT - FINAL RESULTS
+==========================================
+
+Model          : ResNet50
+Fine-tuning    : Hard Example Mining (FN-based)
+Dataset split  : 80% Train / 20% Test
+Test size      : 139 images
+
+FINAL TEST METRICS
+------------------
+Accuracy  : 100.00%
+Precision : 100.00%
+Recall    : 100.00%
+F1-score  : 100.00%
+ROC-AUC   : 100.00%
+
+CONFUSION MATRIX
+----------------
+TN = 61
+FP = 0
+FN = 0
+TP = 78
+
+Notes:
+- Fine-tuning eliminated all false negatives.
+- Test set was kept fully independent.
+- Results obtained on same-source dataset (ACRIMA).
+

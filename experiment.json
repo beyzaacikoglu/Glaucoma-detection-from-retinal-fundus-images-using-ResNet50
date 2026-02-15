@@ -1,0 +1,32 @@
+{
+    "model": "ResNet50",
+    "base_model_path": "glaucoma_resnet50.pth",
+    "finetuned_model_path": "glaucoma_resnet50_finetuned.pth",
+    "dataset": "ACRIMA",
+    "split": {
+        "train_ratio": 0.8,
+        "test_ratio": 0.2,
+        "train_size": 564,
+        "test_size": 139
+    },
+    "hard_example_mining": {
+        "used": true,
+        "hard_examples": [
+            "Im318_g_ACRIMA.jpg",
+            "Im367_g_ACRIMA.jpg"
+        ],
+        "repeat": 30
+    },
+    "training": {
+        "epochs": 3,
+        "learning_rate": 1e-05,
+        "optimizer": "Adam",
+        "loss": "BCEWithLogitsLoss",
+        "unfrozen_layers": [
+            "fc",
+            "layer4"
+        ]
+    },
+    "threshold": 0.5,
+    "device": "cpu"
+}
