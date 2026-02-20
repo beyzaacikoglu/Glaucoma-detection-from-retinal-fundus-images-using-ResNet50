@@ -1,39 +1,97 @@
+# ResNet50 ile Glokom Tespiti
 
-# Glaucoma Detection with ResNet50
+Bu proje, **retinal fundus (göz dibi) görüntüleri** üzerinden  
+**derin öğrenme** kullanarak otomatik **glokom tespiti** yapılmasını amaçlamaktadır.
 
-This project focuses on automated glaucoma detection from retinal fundus images
-using a deep learning approach.
+Çalışmada transfer öğrenme yaklaşımı kullanılarak **ResNet50** mimarisi
+üzerinde ikili sınıflandırma gerçekleştirilmiştir.
 
-## Model
-- Architecture: ResNet50
-- Output: Binary classification (glaucoma / normal)
+---
 
-## Dataset
-- Source: ACRIMA
-- Split: 80% training / 20% testing
-- Split lists saved for reproducibility
+## 🧠 Model Mimarisi
 
-## Training Strategy
-- Initial training with standard split
-- Evaluation on independent test set
-- False Negative analysis
-- Hard Example Mining
-- Mini fine-tuning on FN samples
+- **Mimari:** ResNet50 (ImageNet ön eğitimli)
+- **Görev:** İkili sınıflandırma
+  - Glokom
+  - Normal
+- **Framework:** PyTorch
 
-## Final Results (Test Set)
-- Accuracy: 100%
-- Precision: 100%
-- Recall: 100%
-- F1-score: 100%
-- ROC-AUC: 100%
+---
 
-## Files
-- glaucoma_resnet50.pth              → base model
-- glaucoma_resnet50_finetuned.pth    → final model
-- train_files.txt / test_files.txt   → data split
-- results.txt                        → evaluation results
-- experiment.json                    → experiment configuration
+## 📊 Veri Kümesi
 
-## Notes
-Results are obtained on same-source data.
-External validation is recommended for generalization.
+- **Kaynak:** ACRIMA retinal fundus veri seti
+- **Veri Bölünmesi:**
+  - %80 Eğitim
+  - %20 Test
+- Eğitim ve test görüntülerinin listeleri **tekrar üretilebilirlik**
+  sağlamak amacıyla ayrı dosyalar halinde kaydedilmiştir.
+
+---
+
+## 🏋️ Eğitim Stratejisi
+
+Eğitim süreci çok aşamalı olarak yürütülmüştür:
+
+1. Standart eğitim / test bölünmesi ile başlangıç eğitimi  
+2. Bağımsız test kümesi üzerinde değerlendirme  
+3. **Yanlış Negatif (False Negative)** örneklerin analizi  
+4. **Zor Örnek Madenciliği (Hard Example Mining)**  
+5. Yanlış negatif örnekler üzerinde mini ince ayar (fine-tuning)
+
+Bu yaklaşımın amacı, tıbbi tanı açısından kritik olan
+**yanlış negatif oranını azaltmaktır**.
+
+---
+
+## 📈 Nihai Sonuçlar (Test Kümesi)
+
+| Metrik      | Değer |
+|-------------|-------|
+| Doğruluk (Accuracy) | %100 |
+| Kesinlik (Precision) | %100 |
+| Duyarlılık (Recall) | %100 |
+| F1-Skoru | %100 |
+| ROC-AUC | %100 |
+
+> ⚠️ **Önemli Not:**  
+> Bu sonuçlar **aynı kaynaktan gelen test verisi** üzerinde elde edilmiştir.  
+> Gerçek dünya genellemesi için **harici veri setleriyle doğrulama**
+> yapılması gerekmektedir.
+
+---
+
+## 📁 Proje Dosyaları
+
+- `glaucoma_resnet50.pth`  
+  → İlk eğitilmiş temel model  
+
+- `glaucoma_resnet50_finetuned.pth`  
+  → Zor örnekler ile ince ayar yapılmış nihai model  
+
+- `train_files.txt` / `test_files.txt`  
+  → Sabit veri bölünmeleri  
+
+- `results.txt`  
+  → Değerlendirme sonuçları  
+
+- `experiment.json`  
+  → Deney ayarları ve hiperparametreler  
+
+---
+
+## 📝 Notlar ve Sınırlamalar
+
+- Çalışma **aynı dağılıma sahip veri** üzerinde değerlendirilmiştir
+- Harici veri setleri bu aşamada kullanılmamıştır
+- Sonuçlar **deneysel ve araştırma amaçlıdır**
+- Klinik kullanım için ek doğrulama gereklidir
+
+---
+
+## 🔮 Gelecek Çalışmalar
+
+- Harici veri setleri ile doğrulama
+- Veri setleri arası genelleme analizi
+- Açıklanabilir yapay zekâ yöntemleri (Grad-CAM vb.)
+- Klinik karar destek sistemlerine entegrasyon
